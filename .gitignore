@@ -56,3 +56,6 @@ fabric.properties
 # *.ipr
 
 .idea/
+informedvoters.iml
+/informedvoters.iml
+../informervoters.iml
