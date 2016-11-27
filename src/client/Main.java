@@ -1,51 +1,70 @@
 package client;
 
-import java.util.Scanner;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
-/**
- * Created by hoisi on 11/5/2016.
- */
-public class Main {
+public class Main extends Application {
+    Scene begin;
+    Label voterID,filler;
+    TextField voterTextField;
+    Button authBtn;
 
-    public static void main(String args[]) {
-        //Official has to create tally first
-        Tally tally = new Tally();
-        tally.read();
-        //System.out.println("done");
-        Scanner anotherVote = new Scanner(System.in);
-        System.out.println("Please press Y to start the polling or X to cancel");
-        while (anotherVote.next().equals("Y")) {
-            Ballot ballot = new Ballot(tally.getCandidates());
+    @Override
+    public void start(Stage primaryStage) throws Exception{
 
-            Scanner scannie = new Scanner(System.in);
-            System.out.println("Who are you voting for?");
-            for (int i = 0; i < ballot.getCandidates().size(); i++) {
-                Candidate x = (Candidate) ballot.getCandidates().get(i);
-                System.out.println(x.getName());
-            }
+        /*************** Initial Scene/Layout Start *************/
+        /********************************************************/
 
-            //Maybe the best way to do this in the future is have each button a Candidate Object and after submission build the array
-            String name = scannie.next();
-            for (int i = 0; i < ballot.getCandidates().size(); i++) {
-                Candidate y = (Candidate) ballot.getCandidates().get(i); //This can't be help due to arrayList.get() right?
-                if (name.equals(y.getName())) {
-                    y.addVotesReceived();
+        StackPane authLayout = new StackPane();
+        voterID = new Label("Voter ID:");
+        voterTextField = new TextField();
+        authBtn = new Button();
+        authBtn.setText("Submit ID");
+        authBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String idField = "test"; // TODO: Get user input
+                Voter voter = new Voter();
+                if(voter.authenticate(idField) == true){
+                    primaryStage.setScene(begin);
+                }
+                else{
+                    //Return to start?
                 }
             }
+        });
 
-            ballot.setBallotComplete(true);
-            tally.addBallot(ballot);
+        authLayout.getChildren().addAll(voterID,voterTextField,authBtn);
+        Scene start = new Scene(authLayout,300,250);
 
-            //Print test.txt
-            System.out.println("Press Y to allow another vote to cast their vote, or X to stop the polling");
-        }
-        //Ballot readBallot= new Ballot(tally.getCandidates());
-        System.out.println("Total Tally\n");
-        for (int i = 0; i < tally.getCandidates().size(); i++) {
-            Candidate y = (Candidate) tally.getCandidates().get(i);
-            System.out.println("Candidate: "+ y.getName() + " Votes Recieved: "+ y.getVotesReceived()+"\n");
+        /********************************************************/
+        /*************** Initial Scene/Layout End ***************/
 
-        }
+        /*************** Second Scene/Layout Start *************/
+        /********************************************************/
 
+        StackPane layout2 = new StackPane();
+        filler = new Label("You made it");
+
+        layout2.getChildren().add(filler);
+        begin = new Scene(layout2,300,250);
+
+        /********************************************************/
+        /*************** Second Scene/Layout End ***************/
+
+        primaryStage.setTitle("Informed Voters System");
+        primaryStage.setScene(start);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

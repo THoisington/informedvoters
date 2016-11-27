@@ -19,4 +19,14 @@ public class Voter{
     public void setVoterID(int voterID) {
         this.voterID = voterID;
     }
+
+    public Boolean authenticate(String input){
+        String query = "test"; //TODO: Change this to query for registered and yet to vote user
+        if(input.equals(query)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
