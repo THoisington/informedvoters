@@ -30,7 +30,7 @@ public class candidateController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //TODO: (Aaron) Replace QUERY with this information (Text Areas need to be replaced with different object by me)
+        //TODO: (Tanner) These will come from the Context class
         candidateOneName.setText("QUERY");
         candidateOneParty.setText("QUERY");
         candidateTwoName.setText("QUERY");
