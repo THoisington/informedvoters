@@ -24,6 +24,10 @@ public class Ballot {
         }
     }
 
+    public Ballot(){
+
+    }
+
     public void print(){}
 
     public boolean isBallotComplete() {
