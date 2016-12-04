@@ -12,10 +12,9 @@ public class homeController {
 
     public void authBtnClicked(ActionEvent event) throws IOException {
         String idField = "test"; // TODO: Get user input (change this to integer)
-        Voter voter = new Voter();
-        if(voter.authenticate(idField) == true){
+        if(Context.getInstance().currentVoter().authenticate(idField) == true && Context.getInstance().currentTally().isPollOver() == false){
 
-            //voter.setVoterID(idField);
+            //Context.getInstance().currentVoter().setVoterID(idField);
 
             Parent candidateParent = FXMLLoader.load(getClass().getResource("candidateController.fxml"));
             Scene candidateScene = new Scene(candidateParent);

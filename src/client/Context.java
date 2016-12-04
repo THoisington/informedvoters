@@ -15,6 +15,7 @@ public class Context {
     }
 
     private Voter voter = new Voter();
+    private Official official = new Official();
     private Ballot ballot = new Ballot();
     private ArrayList candidates = new ArrayList();
     private Tally tally = new Tally();
@@ -22,6 +23,10 @@ public class Context {
 
     public Voter currentVoter(){
         return voter;
+    }
+
+    public Official currentOfficial() {
+        return official;
     }
 
     public Ballot currentBallot(){

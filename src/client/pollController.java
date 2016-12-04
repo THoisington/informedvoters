@@ -31,4 +31,16 @@ public class pollController implements Initializable {
             Context.getInstance().currentCandidates().add(DB.get(i));
         }
     }
+
+    public void startBtnClicked(ActionEvent event) throws IOException {
+        Context.getInstance().currentOfficial().startPoll();
+    }
+
+    public void endBtnClicked(ActionEvent event) throws IOException {
+        Context.getInstance().currentOfficial().endPoll();
+    }
+
+    public void tallyBtnClicked(ActionEvent event) throws IOException {
+        Context.getInstance().currentOfficial().tallyResults();
+    }
 }

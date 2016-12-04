@@ -26,4 +26,5 @@ public class BallotController implements Initializable {
 
     }
 
+    //TODO: (Tanner) button handler method. If selected, popup verification and then create ballot and submit to DB
 }
