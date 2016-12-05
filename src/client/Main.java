@@ -1,7 +1,34 @@
 package client;
 
-/**
- * Created by AAron on 11/26/16.
- */
-public class Main {
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
+        primaryStage.setScene(new Scene(root, 600, 550)); //dimensions may not be neccessary
+        //primaryStage.setFullScreen(true);
+        primaryStage.show();
+
+        if(Context.getInstance().getFirstStart()==true){
+            Stage officialLogin = new Stage();
+            Parent off = FXMLLoader.load(getClass().getResource("officialLogin.fxml"));
+            officialLogin.initModality(Modality.WINDOW_MODAL);
+            officialLogin.initOwner(primaryStage.getScene().getWindow());
+            officialLogin.setScene(new Scene(off, 600, 550));
+            //officialLogin.setFullScreen(true);
+            officialLogin.show();
+        }
+    }
+
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

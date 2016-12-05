@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.pollController">
+   <children>
+      <Label layoutX="252.0" layoutY="109.0" text="Admin tools" />
+      <Button fx:id="startBtn" layoutX="252.0" layoutY="145.0" mnemonicParsing="false" onAction="#startBtnClicked" text="Start Poll" />
+      <Button fx:id="endBtn" layoutX="255.0" layoutY="191.0" mnemonicParsing="false" onAction="#endBtnClicked" text="End Poll" />
+      <Button fx:id="tallyBtn" layoutX="242.0" layoutY="233.0" mnemonicParsing="false" onAction="#tallyBtnClicked" text="Tally Results" />
+      <Button fx:id="exitBtn" layoutX="250.0" layoutY="334.0" mnemonicParsing="false" onAction="#exitBtnClicked" text="Exit Tools" />
+      <Label fx:id="feedbackMsg" layoutX="274.0" layoutY="289.0" textFill="#d30000" />
+   </children>
+</Pane>
