@@ -15,7 +15,7 @@ public class homeController {
         if(Context.getInstance().currentVoter().authenticate(idField) == true && Context.getInstance().currentTally().isPollOver() == false){
         //TODO: (Tanner) null pointer on second run ^
             //Context.getInstance().currentVoter().setVoterID(idField);
-
+        //TODO: (Aaron) remove User identification from DB
             Parent candidateParent = FXMLLoader.load(getClass().getResource("candidateController.fxml"));
             Scene candidateScene = new Scene(candidateParent);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
