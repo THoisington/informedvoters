@@ -1,21 +1,26 @@
 package client;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class homeController {
 
+    @FXML
+    TextField voterF;
+
     public void authBtnClicked(ActionEvent event) throws IOException {
-        String idField = "test"; // TODO: (Tanner) Get user input (change this to integer)
+        int idField = Integer.parseInt(voterF.getText());
         if(Context.getInstance().currentVoter().authenticate(idField) == true && Context.getInstance().currentTally().isPollOver() == false){
-        //TODO: (Tanner) null pointer on second run ^
-            //Context.getInstance().currentVoter().setVoterID(idField);
-        //TODO: (Aaron) remove User identification from DB
+            Context.getInstance().currentVoter().setVoterID(idField);
+            //TODO: (Aaron) remove User identification from DB
             Parent candidateParent = FXMLLoader.load(getClass().getResource("candidateController.fxml"));
             Scene candidateScene = new Scene(candidateParent);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -24,7 +29,10 @@ public class homeController {
             appStage.show();
         }
         else{
-            //Return to start?
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Invalid Voter ID");
+            alert.setContentText("Either you entered your ID incorrectly or you have already voted");
+            alert.show();
         }
     }
 

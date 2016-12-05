@@ -7,8 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,13 +19,16 @@ import java.util.ResourceBundle;
 
 public class officialController implements Initializable {
 
+    @FXML
+    TextField officialF;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
 
     public void authBtnClicked(ActionEvent event) throws IOException {
-        String idField = "Pothering"; // TODO: (Tanner) Get user input
+        String idField = officialF.getText();
         Official official = new Official();
         if(official.authenticate(idField) == true){
             System.out.println("auth confirmed");
@@ -36,7 +41,10 @@ public class officialController implements Initializable {
             appStage.show();
         }
         else{
-            //Return to start?
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Invalid Password");
+            alert.setContentText("Please try again");
+            alert.show();
         }
     }
     // NOTE: ESC key combination no match, string empty for popup message. string adapting. free CSS from Oracle. Last slide with tips and tricks

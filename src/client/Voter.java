@@ -25,12 +25,12 @@ public class Voter{
         this.voterID = voterID;
     }
 
-    public Boolean authenticate(String input){
-        //TODO: (Aaron) Search DB for ID input (would be an int) and if it is there and the user hasn't voted return true, else return false
+    public Boolean authenticate(int input){
+        //TODO: (Aaron) Search DB for ID input and if it is there and the user hasn't voted return true, else return false
         // int  query =
 
-        String fakequery = "test";
-        if(input.equals(fakequery)){
+        int fakequery = 123;
+        if(input == fakequery){
             return true;
         }
         else{

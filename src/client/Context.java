@@ -41,8 +41,8 @@ public class Context {
     }
 
     public void refresh(){
-        ballot = null;
-        voter = null;
+        ballot.setVoterID(-1);
+        voter.setVoterID(-1);
         for (Candidate x: tally.getCandidates()) {
             x.resetVotes();
         }

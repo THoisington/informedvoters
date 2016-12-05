@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
@@ -60,7 +61,12 @@ public class BallotController implements Initializable {
         if(nonEmpty == true) {
             Context.getInstance().currentVoter().vote();
             Tally testTally = Context.getInstance().currentTally();
-            //TODO: (Tanner) Thank user, return to beginning
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Voting Complete");
+            alert.setContentText("Thank you for your democracy!");
+            alert.show();
+
             Context.getInstance().refresh();
             Parent parent = FXMLLoader.load(getClass().getResource("home.fxml"));
             Scene homeScene = new Scene(parent);
@@ -69,7 +75,10 @@ public class BallotController implements Initializable {
             //appStage.setFullScreen(true);
             appStage.show();
         }else{
-            //TODO: (Tanner) tell user they need to pick someone
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Invalid ballot");
+            alert.setContentText("You must select a candidate!");
+            alert.show();
         }
 
 
