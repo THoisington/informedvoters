@@ -30,7 +30,6 @@ public class pollController implements Initializable {
     }
 
     public void startBtnClicked(ActionEvent event) throws IOException {
-        //TODO (Aaron) get me the candidates from the DB in some form. For now I will assume an arrayList called DB
         Candidate hil = new Candidate();
         hil.setName("Hilary Clinton");
         hil.setOffice("President");
@@ -41,7 +40,8 @@ public class pollController implements Initializable {
         trump.setOffice("President");
         trump.setParty("Alt-Right");
         trump.setBio("I can't bring myself to write this");
-        ArrayList <Candidate> DB = new ArrayList();
+        ArrayList <Candidate> DB = new ArrayList();  //TODO (Tanner) getting the arraylist from Tally
+
         DB.add(hil);
         DB.add(trump);
 
@@ -69,4 +69,8 @@ public class pollController implements Initializable {
     }
 
     //TODO: Recount option
+
+    public void addBtnClicked(ActionEvent event) throws IOException {
+        //TODO: (tanner) get through second window Name, party, office, bio, image. Create candidate, then call tally.addCandidate
+    }
 }

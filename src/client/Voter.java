@@ -26,8 +26,11 @@ public class Voter{
     }
 
     public Boolean authenticate(String input){
-        String query = "test"; //TODO: Change this to query for registered and yet to vote user
-        if(input.equals(query)){
+        //TODO: (Aaron) Search DB for ID input (would be an int) and if it is there and the user hasn't voted return true, else return false
+        // int  query =
+
+        String fakequery = "test";
+        if(input.equals(fakequery)){
             return true;
         }
         else{

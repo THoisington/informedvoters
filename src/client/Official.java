@@ -21,6 +21,8 @@ public class Official {
     //Is this just to verify the number of voters = the number of votes and then submit All?
     public void tallyResults(){}
 
+    //TODO: recount method
+
     public Boolean authenticate(String input){
         if(input.equals(ps)){
             return true;
