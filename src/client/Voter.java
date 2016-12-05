@@ -8,9 +8,14 @@ public class Voter{
 
     public Voter(){}
 
-    public void openBallot(){}
+    public void openBallot(){
+        Context.getInstance().currentBallot().setCandidates(Context.getInstance().currentTally().getCandidates());
+    }
 
-    public void vote(){}
+    public void vote(){
+        //TODO: (Aaron) This is where we write the contents of the object on the next line to the DB
+        // Ballot submit = Context.getInstance().currentBallot();
+    }
 
     public int getVoterID() {
         return voterID;

@@ -8,6 +8,8 @@ public class Candidate {
     String name;
     String office;
     String bio;
+    String party;
+    int votesReceived;
 
     public String getParty() {
         return party;
@@ -16,9 +18,6 @@ public class Candidate {
     public void setParty(String party) {
         this.party = party;
     }
-
-    String party;
-    int votesReceived;
 
     public Candidate(){}
 
@@ -52,5 +51,9 @@ public class Candidate {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public void resetVotes(){
+        votesReceived = 0;
     }
 }

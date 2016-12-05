@@ -17,8 +17,7 @@ public class Context {
     private Voter voter = new Voter();
     private Official official = new Official();
     private Ballot ballot = new Ballot();
-    private ArrayList candidates = new ArrayList();
-    private Tally tally = new Tally();
+    private Tally tally = new Tally(); //reevaluate use of Tally
     private Boolean firstStart = true;
 
     public Voter currentVoter(){
@@ -33,10 +32,6 @@ public class Context {
         return ballot;
     }
 
-    public ArrayList currentCandidates(){
-        return candidates;
-    }
-
     public Tally currentTally(){
         return tally;
     }
@@ -44,6 +39,15 @@ public class Context {
     public Boolean getFirstStart(){
         return firstStart;
     }
+
+    public void refresh(){
+        ballot = null;
+        voter = null;
+        for (Candidate x: tally.getCandidates()) {
+            x.resetVotes();
+        }
+    }
+
 
     public void setFirstStart(Boolean x){
         firstStart = x;

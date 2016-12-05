@@ -23,20 +23,22 @@ public class officialController implements Initializable {
     }
 
     public void authBtnClicked(ActionEvent event) throws IOException {
-        String idField = "Pothering"; // TODO: Get user input
+        String idField = "Pothering"; // TODO: (Tanner) Get user input
         Official official = new Official();
         if(official.authenticate(idField) == true){
             System.out.println("auth confirmed");
 
-//            Parent candidateParent = FXMLLoader.load(getClass().getResource("candidateController.fxml"));
-//            Scene candidateScene = new Scene(candidateParent);
-//            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//            appStage.setScene(candidateScene);
-//            appStage.show();
+            Parent parent = FXMLLoader.load(getClass().getResource("pollTools.fxml"));
+            Scene candidateScene = new Scene(parent);
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(candidateScene);
+            //appStage.setFullScreen(true);
+            appStage.show();
         }
         else{
             //Return to start?
         }
     }
-
+    // NOTE: ESC key combination no match, string empty for popup message. string adapting. free CSS from Oracle. Last slide with tips and tricks
+    // recount prints out data to console
 }

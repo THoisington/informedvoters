@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by hoisi on 10/27/2016.
  */
 public class Ballot {
-    private ArrayList candidates = new ArrayList();
+    private ArrayList<Candidate> candidates = new ArrayList();
 
     boolean ballotComplete;
     int voterID;
@@ -48,6 +48,18 @@ public class Ballot {
 
     public ArrayList getCandidates() {
         return candidates;
+    }
+
+    public void setCandidates(ArrayList x) {
+        candidates = x;
+    }
+
+    public void addOfficeSelection(String name){
+        for (Candidate current: candidates) {
+            if(current.getName().equals(name)){
+                current.addVotesReceived();
+            }
+        }
     }
 
 }

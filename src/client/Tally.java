@@ -1,5 +1,7 @@
 package client;
 
+import com.sun.deploy.util.ArrayUtil;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -39,37 +41,16 @@ public class Tally {
 
     }
 
-    public void read(){
-        File f = new File("client/test.txt");
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(f));
-            String fileRead = br.readLine();
-
-            while (fileRead != null) {
-                Candidate x = new Candidate();
-                String[] tokenize = fileRead.split("\\+");
-                x.setName(tokenize[0]);
-                x.setParty(tokenize[1]);
-                x.setOffice(tokenize[2]);
-                candidates.add(x);
-                fileRead = br.readLine();
-            }
-            br.close();
-        }
-        catch (FileNotFoundException a){
-            System.out.println("file not found");
-        }
-        catch (IOException b){
-            b.printStackTrace();
-        }
-    }
-
     public void display(){
 
     }
 
 
-    public ArrayList getCandidates() {
+    public ArrayList<Candidate> getCandidates() {
         return candidates;
+    }
+
+    public void setCandidates(Candidate fromDB){
+        candidates.add(fromDB);
     }
 }
