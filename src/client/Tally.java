@@ -55,6 +55,7 @@ public class Tally {
     }
 
     public void addCandidate(Candidate x){
-        //TODO: (Aaron) Take candidate and add to Tally. If not in DB, add to Candidate table
+        //TODO: (Aaron) If not in DB, add to Candidate table
+        candidates.add(x);
     }
 }
