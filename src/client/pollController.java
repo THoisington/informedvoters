@@ -32,25 +32,6 @@ public class pollController implements Initializable {
     }
 
     public void startBtnClicked(ActionEvent event) throws IOException {
-        Candidate hil = new Candidate();
-        hil.setName("Hilary Clinton");
-        hil.setOffice("President");
-        hil.setParty("Democrat");
-        hil.setBio("First failed female democractic nominee");
-        Candidate trump = new Candidate();
-        trump.setName("The Donald");
-        trump.setOffice("President");
-        trump.setParty("Alt-Right");
-        trump.setBio("I can't bring myself to write this");
-        ArrayList <Candidate> DB = new ArrayList();  //TODO (Tanner) getting the arraylist from Tally
-
-        DB.add(hil);
-        DB.add(trump);
-
-        //End of sample data
-        for (int i = 0; i < DB.size(); i++) {
-            Context.getInstance().currentTally().setCandidates( DB.get(i));
-        }
         Context.getInstance().currentOfficial().startPoll();
         feedbackMsg.setText("Poll Started!");
     }

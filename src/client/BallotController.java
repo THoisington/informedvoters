@@ -23,20 +23,73 @@ public class BallotController implements Initializable {
     @FXML
     Label officeName;
 
+    int index = 0;
+    ArrayList <RadioButton> buttons = new ArrayList<>();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Context.getInstance().currentVoter().openBallot(); //When we get into the voting, we start using ballot not tally
-        ArrayList <RadioButton> buttons = new ArrayList<>();
         buttons.add(radioA);
         buttons.add(radioB);
         buttons.add(radioC);
         buttons.add(radioD);
         for(int i = 0; i < Context.getInstance().currentBallot().getCandidates().size() && i < 4; i++){
+            index++;
             Candidate current = (Candidate) Context.getInstance().currentBallot().getCandidates().get(i);
             buttons.get(i).setText(current.getName());
         }
 
     }
+
+    public void leftBtnClicked(ActionEvent event) throws IOException{
+        if(index>=8) {
+
+            index= index - 5;
+
+            for (RadioButton x : buttons) {
+                x.setText("");
+                //show X
+            }
+
+            //index is currently 4, arraylist spot 3 gotten
+            for (int i = 3; i >= 0; i--) {
+                Candidate current = (Candidate) Context.getInstance().currentBallot().getCandidates().get(index);
+                buttons.get(i % 4).setText(current.getName());
+                index--;
+            }
+
+            for (RadioButton x : buttons) {
+                if (x.getText().equals("")) {
+                    //hide X
+                }
+            }
+        }
+    }
+
+    public void rightBtnClicked(ActionEvent event) throws IOException{
+
+        if(index<Context.getInstance().currentBallot().getCandidates().size()) {
+
+            for (RadioButton x : buttons) {
+                x.setText("");
+                //show X
+            }
+
+            //index is currently 4, arraylist spot 3 gotten
+            for (int i = 0; i + index < Context.getInstance().currentBallot().getCandidates().size() && i < 4; i++) {
+                Candidate current = (Candidate) Context.getInstance().currentBallot().getCandidates().get(index);
+                buttons.get(i % 4).setText(current.getName());
+                index++;
+            }
+
+            for (RadioButton x : buttons) {
+                if (x.getText().equals("")) {
+                    //hide X
+                }
+            }
+        }
+    }
+
 
     //TODO: (Tanner) button handler method. If selected, popup verification and then create ballot and submit to DB
     public void submitBtnClicked(ActionEvent event) throws IOException{
@@ -66,6 +119,10 @@ public class BallotController implements Initializable {
             alert.setHeaderText("Voting Complete");
             alert.setContentText("Thank you for your democracy!");
             alert.show();
+
+            //TODO: (Aaron) set voter to having voted in DB
+
+            Context.getInstance().currentBallot().print();
 
             Context.getInstance().refresh();
             Parent parent = FXMLLoader.load(getClass().getResource("home.fxml"));

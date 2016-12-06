@@ -16,19 +16,6 @@ public class Tally {
 
     public Tally(){}
 
-    //The class diagram also calls for addBallotResults(). What did that do?
-    public void addBallot(Ballot b){
-        if (b.isBallotComplete() == true){
-            for(int i = 0; i < this.candidates.size(); i++){
-                Candidate fromTally = (Candidate) this.candidates.get(i);
-                Candidate fromBallot = (Candidate) b.getCandidates().get(i);
-                if(fromBallot.getVotesReceived()!= 0){
-                    fromTally.addVotesReceived();
-                }
-            }
-        }
-    }
-
     public boolean isPollOver() {
         return pollOver;
     }
@@ -50,9 +37,6 @@ public class Tally {
         return candidates;
     }
 
-    public void setCandidates(Candidate fromDB){
-        candidates.add(fromDB);
-    }
 
     public void addCandidate(Candidate x){
         //TODO: (Aaron) If not in DB, add to Candidate table

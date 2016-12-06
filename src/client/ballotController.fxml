@@ -7,10 +7,12 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.BallotController">
    <children>
       <Label fx:id="officeName" layoutX="283.0" layoutY="74.0" text="Label" />
-      <RadioButton fx:id="radioA" layoutX="245.0" layoutY="113.0" mnemonicParsing="false" text="A" />
-      <RadioButton fx:id="radioB" layoutX="246.0" layoutY="153.0" mnemonicParsing="false" text="B" />
-      <RadioButton fx:id="radioC" layoutX="246.0" layoutY="190.0" mnemonicParsing="false" text="C" />
-      <RadioButton fx:id="radioD" layoutX="246.0" layoutY="228.0" mnemonicParsing="false" text="D" />
+      <RadioButton fx:id="radioA" layoutX="245.0" layoutY="113.0" mnemonicParsing="false" />
+      <RadioButton fx:id="radioB" layoutX="246.0" layoutY="153.0" mnemonicParsing="false" />
+      <RadioButton fx:id="radioC" layoutX="246.0" layoutY="190.0" mnemonicParsing="false" />
+      <RadioButton fx:id="radioD" layoutX="246.0" layoutY="228.0" mnemonicParsing="false" />
       <Button fx:id="submitBtn" layoutX="249.0" layoutY="288.0" mnemonicParsing="false" onAction="#submitBtnClicked" text="Submit Ballot" />
+      <Button fx:id="leftBtn" layoutX="92.0" layoutY="175.0" mnemonicParsing="false" text="&lt;" />
+      <Button fx:id="rightBtn" layoutX="439.0" layoutY="175.0" mnemonicParsing="false" onAction="#rightBtnClicked" text="&gt;" />
    </children>
 </Pane>

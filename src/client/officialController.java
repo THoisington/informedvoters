@@ -31,8 +31,6 @@ public class officialController implements Initializable {
         String idField = officialF.getText();
         Official official = new Official();
         if(official.authenticate(idField) == true){
-            System.out.println("auth confirmed");
-
             Parent parent = FXMLLoader.load(getClass().getResource("pollTools.fxml"));
             Scene candidateScene = new Scene(parent);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
