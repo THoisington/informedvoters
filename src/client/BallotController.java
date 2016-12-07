@@ -75,10 +75,13 @@ public class BallotController implements Initializable {
                 //show X
             }
 
+            //Test
+            ArrayList <Candidate> test = Context.getInstance().currentBallot().getCandidates();
+
             //index is currently 4, arraylist spot 3 gotten
-            for (int i = 0; i + index < Context.getInstance().currentBallot().getCandidates().size() && i < 4; i++) {
+            for (int i = 0; i + index <= Context.getInstance().currentBallot().getCandidates().size() && i < 4; i++) {
                 Candidate current = (Candidate) Context.getInstance().currentBallot().getCandidates().get(index);
-                buttons.get(i % 4).setText(current.getName());
+                buttons.get(i % 4).setText(current.getName()); //% not needed?
                 index++;
             }
 
@@ -106,7 +109,6 @@ public class BallotController implements Initializable {
         for (RadioButton current: candidates) {
             if(current.isSelected() == true){
                 Context.getInstance().currentBallot().addOfficeSelection(current.getText()); //TODO: Next test this
-                //testBallot.addOfficeSelection(current.getText());
                 nonEmpty = true;
             }
         }

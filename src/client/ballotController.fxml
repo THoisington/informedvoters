@@ -12,7 +12,7 @@
       <RadioButton fx:id="radioC" layoutX="246.0" layoutY="190.0" mnemonicParsing="false" />
       <RadioButton fx:id="radioD" layoutX="246.0" layoutY="228.0" mnemonicParsing="false" />
       <Button fx:id="submitBtn" layoutX="249.0" layoutY="288.0" mnemonicParsing="false" onAction="#submitBtnClicked" text="Submit Ballot" />
-      <Button fx:id="leftBtn" layoutX="92.0" layoutY="175.0" mnemonicParsing="false" text="&lt;" />
+      <Button fx:id="leftBtn" layoutX="92.0" layoutY="175.0" mnemonicParsing="false" onAction="#leftBtnClicked" text="&lt;" />
       <Button fx:id="rightBtn" layoutX="439.0" layoutY="175.0" mnemonicParsing="false" onAction="#rightBtnClicked" text="&gt;" />
    </children>
 </Pane>

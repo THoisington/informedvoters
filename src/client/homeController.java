@@ -16,6 +16,8 @@ public class homeController {
     @FXML
     TextField voterF;
 
+    //TODO: eventlistener for shortcut to get to admin tool
+
     public void authBtnClicked(ActionEvent event) throws IOException {
         int idField = Integer.parseInt(voterF.getText());
         if(Context.getInstance().currentVoter().authenticate(idField) == true && Context.getInstance().currentTally().isPollOver() == false){
