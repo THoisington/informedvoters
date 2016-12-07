@@ -1,15 +1,25 @@
 package client;
+import java.sql.*;
+
+import java.sql.PreparedStatement;
 
 /**
  * Created by hoisi on 10/27/2016.
  */
 public class Voter{
     int voterID;
+    private Connection conn = null;
+    private Statement stmt = null;
+    private ResultSet rs = null;
+    private PreparedStatement statement=null;
 
     public Voter(){}
 
     public void openBallot(){
-        Context.getInstance().currentBallot().setCandidates(Context.getInstance().currentTally().getCandidates());
+        try{Context.getInstance().currentBallot().setCandidates(Context.getInstance().currentTally().getCandidates());}
+        catch(Exception e){
+            System.out.println("SQL EXCEPTION FOUND"+e);
+        }
     }
 
     public void vote(){
@@ -26,15 +36,51 @@ public class Voter{
     }
 
     public Boolean authenticate(int input){
-        //TODO: (Aaron) Search DB for ID input and if it is there and the user hasn't voted return true, else return false
-        // int  query =
+        String hasVotedString;
+        Boolean hasntVoted=false;
+        //TODO: (Aaron-Done?) Search DB for ID input and if it is there and the user hasn't voted return true, else return false
+        try{
 
-        int fakequery = 123;
-        if(input == fakequery){
-            return true;
+            conn=databaseConnector.getConnection();
+            String sql = "SELECT hasvoted FROM voterID WHERE ID=?";
+
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1,input);
+            rs=statement.executeQuery();
+            while(rs.next()) {
+                hasVotedString=rs.getString("hasVoted");
+                System.out.println("HAS THIS USER VOTED OUTPUT TEST: " + hasVotedString);
+                if(hasVotedString.toLowerCase().equals("true")){
+                    hasntVoted=false;
+                    return hasntVoted;
+
+                }else if(hasVotedString.toLowerCase().equals("false")){
+                    hasntVoted=true;
+                    return hasntVoted;
+
+                }
+            }
+
+
+
+        }catch(Exception e){
+            System.out.println("SQL EXCEPTION FOUND:"+e);
+        }finally{
+            try{if (statement != null) { statement.close(); }}
+            catch(Exception a){
+                System.out.println("SQL EXCEPTION FOUND:" +a);
+            }
+
         }
-        else{
-            return false;
-        }
+
+
+//        int fakequery = 123;
+//        if(input == fakequery){
+//            return true;
+//        }
+//        else{
+//            return false;
+//        }
+        return hasntVoted;
     }
 }
