@@ -121,6 +121,14 @@ public class BallotController implements Initializable {
             alert.show();
 
             //TODO: (Aaron) set voter to having voted in DB
+            try{
+
+            }
+            catch(Exception e){
+
+            }finally{
+
+            }
 
             Context.getInstance().currentBallot().print();
 

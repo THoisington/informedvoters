@@ -1,5 +1,5 @@
 package client;
-
+import java.sql.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.fxml.Initializable;
@@ -30,16 +30,26 @@ public class candidateController implements Initializable{
      * @param resources The resources used to localize the root object, or <tt>null</tt> if
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources){
         //TODO: (Tanner) These will come from the Context class
-        ArrayList <Candidate> db = Context.getInstance().currentTally().getCandidates();
+        try {
+            ArrayList<Candidate> db = Context.getInstance().currentTally().getCandidates();
+            candidateOneName.setText(db.get(0).getName());
+            candidateOneParty.setText(db.get(0).getParty());
+            candidateOneBio.setText(db.get(0).getBio());
+            candidateTwoName.setText(db.get(1).getName());
+            candidateTwoParty.setText(db.get(1).getParty());
+            candidateTwoBio.setText(db.get(1).getBio());
+        }catch(Exception e){
+            System.out.println("SQL Exception Occured"+e);
+        }
 
-        candidateOneName.setText(db.get(0).getName());
-        candidateOneParty.setText(db.get(0).getParty());
-        candidateOneBio.setText(db.get(0).getBio());
-        candidateTwoName.setText(db.get(1).getName());
-        candidateTwoParty.setText(db.get(1).getParty());
-        candidateTwoBio.setText(db.get(1).getBio());
+//        candidateOneName.setText(db.get(0).getName());
+//        candidateOneParty.setText(db.get(0).getParty());
+//        candidateOneBio.setText(db.get(0).getBio());
+//        candidateTwoName.setText(db.get(1).getName());
+//        candidateTwoParty.setText(db.get(1).getParty());
+//        candidateTwoBio.setText(db.get(1).getBio());
     }
 
     public void proceedBtnClicked(ActionEvent event) throws IOException {
