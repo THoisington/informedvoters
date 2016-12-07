@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Ballot {
     private ArrayList<Candidate> candidates = new ArrayList();
 
-    boolean ballotComplete;
     int voterID;
 
     public Ballot(ArrayList x){

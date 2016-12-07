@@ -24,10 +24,6 @@ public class Tally {
         this.pollOver = pollOver;
     }
 
-    public void submitBallots(){
-
-    }
-
     public void display(){
 
     }
