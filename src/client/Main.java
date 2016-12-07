@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
+
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
         primaryStage.setScene(new Scene(root, 600, 550)); //dimensions may not be neccessary

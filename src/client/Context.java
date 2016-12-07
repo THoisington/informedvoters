@@ -40,13 +40,18 @@ public class Context {
         return firstStart;
     }
 
-    public void refresh(){
+    public void refresh() {
         ballot.setVoterID(-1);
         voter.setVoterID(-1);
-        for (Candidate x: tally.getCandidates()) {
+        try{
+        for (Candidate x : tally.getCandidates()) {
             x.resetVotes();
+            }
+        }catch(Exception e){
+            System.out.println("SQL Exception Found"+e);
         }
     }
+
 
 
     public void setFirstStart(Boolean x){
