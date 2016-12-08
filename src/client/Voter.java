@@ -2,6 +2,7 @@ package client;
 import java.sql.*;
 
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 
 /**
  * Created by hoisi on 10/27/2016.
@@ -21,9 +22,36 @@ public class Voter{
     }
 
     public void vote(){
-        //TODO: (Aaron) This is where we write the contents of the object on the next line to the DB
-        // Ballot submit = Context.getInstance().currentBallot();
-        // TODO: Add one to Candidates Table LOCAL votes column
+        int i;
+        //TODO: (Aaron-Done?) This is where we write the contents of the object on the next line to the DB
+        Ballot submit = Context.getInstance().currentBallot();
+        // TODO(Done?): Add one to Candidates Table LOCAL votes column
+        ArrayList<Candidate> candidatesTemp=submit.getCandidates();
+        for(i=0;i<candidatesTemp.size();i++){
+                if(candidatesTemp.get(i).getVotesReceived()==1){
+                    String tempName=candidatesTemp.get(i).getName();
+                    try{
+                        conn=databaseConnector.getConnection();
+                        String sql = "UPDATE Candidate SET tempVotes=tempVotes+1 WHERE name=?";
+
+                        statement = conn.prepareStatement(sql);
+                        statement.setString(1,tempName);
+                        statement.executeUpdate();
+
+
+
+                    }catch(Exception e){
+                        System.out.println("SQL EXCEPTION FOUND:"+e);
+                    }finally{
+                        try{if (statement != null) { statement.close(); }}
+                        catch(Exception a){
+                            System.out.println("SQL EXCEPTION FOUND:" +a);
+                        }
+
+                    }
+
+                }
+        }
 
     }
 
@@ -42,9 +70,9 @@ public class Voter{
 
         //For Testing
         //TODO: Remove before submission
-        if(input == fakequery){
-            return true;
-        }
+//        if(input == fakequery){
+//            return true;
+//        }
 
         try{
             conn=databaseConnector.getConnection();
