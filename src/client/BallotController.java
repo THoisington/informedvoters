@@ -23,7 +23,7 @@ public class BallotController implements Initializable {
     @FXML
     Label officeName;
 
-    int index = 0;
+    int index = 0, lastTail;
     ArrayList <RadioButton> buttons = new ArrayList<>();
 
     @Override
@@ -34,17 +34,20 @@ public class BallotController implements Initializable {
         buttons.add(radioC);
         buttons.add(radioD);
         for(int i = 0; i < Context.getInstance().currentBallot().getCandidates().size() && i < 4; i++){
-            index++;
             Candidate current = (Candidate) Context.getInstance().currentBallot().getCandidates().get(i);
             buttons.get(i).setText(current.getName());
+            lastTail = index;
+            index++;
         }
+
 
     }
 
     public void leftBtnClicked(ActionEvent event) throws IOException{
-        if(index>=8) {
+        if(index>=5) {
 
-            index= index - 5;
+            ArrayList <Candidate> test = Context.getInstance().currentBallot().getCandidates();
+            index= lastTail; // On first set, index now equals 3
 
             for (RadioButton x : buttons) {
                 x.setText("");
@@ -52,9 +55,9 @@ public class BallotController implements Initializable {
             }
 
             //index is currently 4, arraylist spot 3 gotten
-            for (int i = 3; i >= 0; i--) {
+            for (int i = 0; i < 4; i++) {
                 Candidate current = (Candidate) Context.getInstance().currentBallot().getCandidates().get(index);
-                buttons.get(i % 4).setText(current.getName());
+                buttons.get(buttons.size()-1-i).setText(current.getName()); //I know this is wonky
                 index--;
             }
 
@@ -76,12 +79,15 @@ public class BallotController implements Initializable {
             }
 
             //Test
-            ArrayList <Candidate> test = Context.getInstance().currentBallot().getCandidates();
+            index = lastTail + 1;
 
             //index is currently 4, arraylist spot 3 gotten
-            for (int i = 0; i + index <= Context.getInstance().currentBallot().getCandidates().size() && i < 4; i++) {
+            for (int i = 0; index < Context.getInstance().currentBallot().getCandidates().size() && i < 4; i++) {
                 Candidate current = (Candidate) Context.getInstance().currentBallot().getCandidates().get(index);
                 buttons.get(i % 4).setText(current.getName()); //% not needed?
+                if(i == 3) {
+                    lastTail = index;
+                }
                 index++;
             }
 
@@ -94,7 +100,6 @@ public class BallotController implements Initializable {
     }
 
 
-    //TODO: (Tanner) button handler method. If selected, popup verification and then create ballot and submit to DB
     public void submitBtnClicked(ActionEvent event) throws IOException{
 
         Boolean nonEmpty = false;
@@ -103,23 +108,21 @@ public class BallotController implements Initializable {
         candidates.add(radioB);
         candidates.add(radioC);
         candidates.add(radioD);
-        Ballot testBallot = Context.getInstance().currentBallot(); //test
 
 //
         for (RadioButton current: candidates) {
             if(current.isSelected() == true){
-                Context.getInstance().currentBallot().addOfficeSelection(current.getText()); //TODO: Next test this
+                Context.getInstance().currentBallot().addOfficeSelection(current.getText());
                 nonEmpty = true;
             }
         }
 
         if(nonEmpty == true) {
             Context.getInstance().currentVoter().vote();
-            Tally testTally = Context.getInstance().currentTally();
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Voting Complete");
-            alert.setContentText("Thank you for your democracy!");
+            alert.setContentText("Democracy thanks you!");
             alert.show();
 
             //TODO: (Aaron) set voter to having voted in DB

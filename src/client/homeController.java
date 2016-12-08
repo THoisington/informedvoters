@@ -7,6 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,9 +21,20 @@ public class homeController {
 
     //TODO: eventlistener for shortcut to get to admin tool
 
+
     public void authBtnClicked(ActionEvent event) throws IOException {
         int idField = Integer.parseInt(voterF.getText());
-        if(Context.getInstance().currentVoter().authenticate(idField) == true && Context.getInstance().currentTally().isPollOver() == false){
+
+        if(idField == 666){
+            Stage officialLogin = new Stage();
+            Parent off = FXMLLoader.load(getClass().getResource("officialLogin.fxml"));
+            officialLogin.initModality(Modality.WINDOW_MODAL);
+            //officialLogin.initOwner(off.getScene().getWindow());
+            officialLogin.setScene(new Scene(off, 600, 550));
+            //officialLogin.setFullScreen(true);
+            officialLogin.show();
+
+        }else if(Context.getInstance().currentVoter().authenticate(idField) == true && Context.getInstance().currentTally().isPollOver() == false){
             Context.getInstance().currentVoter().setVoterID(idField);
             //TODO: (Aaron) remove User identification from DB
             Parent candidateParent = FXMLLoader.load(getClass().getResource("candidateController.fxml"));

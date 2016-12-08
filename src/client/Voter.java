@@ -16,15 +16,15 @@ public class Voter{
     public Voter(){}
 
     public void openBallot(){
-        try{Context.getInstance().currentBallot().setCandidates(Context.getInstance().currentTally().getCandidates());}
-        catch(Exception e){
-            System.out.println("SQL EXCEPTION FOUND"+e);
-        }
+        Context.getInstance().currentBallot().setCandidates(Context.getInstance().currentTally().getCandidates());
+        Context.getInstance().currentBallot().setVoterID(this.getVoterID());
     }
 
     public void vote(){
         //TODO: (Aaron) This is where we write the contents of the object on the next line to the DB
         // Ballot submit = Context.getInstance().currentBallot();
+        // TODO: Add one to Candidates Table LOCAL votes column
+
     }
 
     public int getVoterID() {
@@ -38,9 +38,15 @@ public class Voter{
     public Boolean authenticate(int input){
         String hasVotedString;
         Boolean hasntVoted=false;
-        //TODO: (Aaron-Done?) Search DB for ID input and if it is there and the user hasn't voted return true, else return false
-        try{
+        int fakequery = 123;
 
+        //For Testing
+        //TODO: Remove before submission
+        if(input == fakequery){
+            return true;
+        }
+
+        try{
             conn=databaseConnector.getConnection();
             String sql = "SELECT hasvoted FROM voterID WHERE ID=?";
 

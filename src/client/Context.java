@@ -43,13 +43,9 @@ public class Context {
     public void refresh() {
         ballot.setVoterID(-1);
         voter.setVoterID(-1);
-        try{
         for (Candidate x : tally.getCandidates()) {
             x.resetVotes();
             }
-        }catch(Exception e){
-            System.out.println("SQL Exception Found"+e);
-        }
     }
 
 
