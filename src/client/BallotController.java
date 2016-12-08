@@ -1,4 +1,5 @@
 package client;
+import java.sql.*;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -24,6 +27,10 @@ public class BallotController implements Initializable {
     RadioButton radioA, radioB, radioC, radioD;
     @FXML
     Label officeName;
+    private Connection conn = null;
+    private Statement stmt = null;
+    private ResultSet rs = null;
+    private PreparedStatement statement=null;
 
     int index = 0, lastTail;
     ArrayList <RadioButton> buttons = new ArrayList<>();
@@ -167,14 +174,27 @@ public class BallotController implements Initializable {
             alert.setContentText("Democracy thanks you!");
             alert.show();
 
-            //TODO: (Aaron) set voter to having voted in DB
+            //TODO: (Aaron-Done? I remove user DL# from DB so the other TODO is completed) set voter to having voted in DB
             try{
+                int tempID=Context.getInstance().currentVoter().getVoterID();
+                conn=databaseConnector.getConnection();
+                String sql = "UPDATE voterID SET hasVoted=?,dlnum=? WHERE ID=?";
+
+                statement = conn.prepareStatement(sql);
+                statement.setString(1,"True");
+                statement.setNull(2,java.sql.Types.INTEGER);
+                statement.setInt(3,tempID);
+                statement.executeUpdate();
+
 
             }
-            catch(Exception e){
-
-            }finally{
-
+            catch(SQLException e){
+                System.out.println("SQL exception occured" + e);
+            }finally {
+                try{if (statement != null) { statement.close(); }}
+                catch(Exception a){
+                    System.out.println("SQL EXCEPTION FOUND"+a);
+                }
             }
 
             Context.getInstance().currentBallot().print();

@@ -36,7 +36,7 @@ public class homeController {
 
         }else if(Context.getInstance().currentVoter().authenticate(idField) == true && Context.getInstance().currentTally().isPollOver() == false){
             Context.getInstance().currentVoter().setVoterID(idField);
-            //TODO: (Aaron) remove User identification from DB
+            //TODO: (Aaron-DONE WHEN set hasvoted to true) remove User identification from DB
             Parent candidateParent = FXMLLoader.load(getClass().getResource("candidateController.fxml"));
             Scene candidateScene = new Scene(candidateParent);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
