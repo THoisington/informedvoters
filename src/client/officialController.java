@@ -35,7 +35,7 @@ public class officialController implements Initializable {
             Scene candidateScene = new Scene(parent);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             appStage.setScene(candidateScene);
-            //appStage.setFullScreen(true);
+            appStage.setFullScreen(true);
             appStage.show();
         }
         else{

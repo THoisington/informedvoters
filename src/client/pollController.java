@@ -53,6 +53,11 @@ public class pollController implements Initializable {
         //TODO Aaron create tally string
     }
 
+    //TODO: (Aaron) if you want (I don't think we need it) print out the total number of people who voted or whatever
+    public void totalBtnClicked(ActionEvent event) throws IOException{
+
+    }
+
     public void tallyBtnClicked(ActionEvent event) throws IOException {
         Context.getInstance().currentOfficial().tallyResults();
         //TODO: (Aaron) can we use your query for all the local votes and print that in the console here?

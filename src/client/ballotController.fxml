@@ -14,5 +14,6 @@
       <Button fx:id="submitBtn" layoutX="249.0" layoutY="288.0" mnemonicParsing="false" onAction="#submitBtnClicked" text="Submit Ballot" />
       <Button fx:id="leftBtn" layoutX="92.0" layoutY="175.0" mnemonicParsing="false" onAction="#leftBtnClicked" text="&lt;" />
       <Button fx:id="rightBtn" layoutX="439.0" layoutY="175.0" mnemonicParsing="false" onAction="#rightBtnClicked" text="&gt;" />
+      <Button fx:id="writeBtn" layoutX="268.0" layoutY="337.0" mnemonicParsing="false" onAction="#writeBtnClicked" text="Write In" />
    </children>
 </Pane>

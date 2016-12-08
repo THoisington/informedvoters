@@ -62,7 +62,7 @@ public class candidateController implements Initializable{
         Scene ballotScene = new Scene(parent);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(ballotScene);
-        //appStage.setFullScreen(true);
+        appStage.setFullScreen(true);
         appStage.show();
     }
 }

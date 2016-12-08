@@ -59,4 +59,8 @@ public class Ballot {
         }
     }
 
+    public void addWriteIn(Candidate x){
+        candidates.add(x);
+    }
+
 }

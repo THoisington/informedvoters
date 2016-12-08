@@ -44,7 +44,6 @@ public class Tally {
         return candidates;
     }
 
-
     public void addCandidate(Candidate x){
 
         //Commented out for myself

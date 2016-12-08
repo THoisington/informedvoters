@@ -9,11 +9,13 @@ import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class BallotController implements Initializable {
@@ -51,7 +53,7 @@ public class BallotController implements Initializable {
 
             for (RadioButton x : buttons) {
                 x.setText("");
-                //show X
+                x.setVisible(true);
             }
 
             //index is currently 4, arraylist spot 3 gotten
@@ -63,7 +65,7 @@ public class BallotController implements Initializable {
 
             for (RadioButton x : buttons) {
                 if (x.getText().equals("")) {
-                    //hide X
+                    x.setVisible(false);
                 }
             }
         }
@@ -75,7 +77,7 @@ public class BallotController implements Initializable {
 
             for (RadioButton x : buttons) {
                 x.setText("");
-                //show X
+                x.setVisible(true);
             }
 
             //Test
@@ -93,10 +95,50 @@ public class BallotController implements Initializable {
 
             for (RadioButton x : buttons) {
                 if (x.getText().equals("")) {
-                    //hide X
+                    x.setVisible(false);
                 }
             }
         }
+    }
+
+    public void writeBtnClicked(ActionEvent event) throws IOException{
+        Candidate insert = new Candidate();
+
+        //Name
+        TextInputDialog dialog = new TextInputDialog("Name");
+        dialog.setTitle("Candidate Name");
+        dialog.setHeaderText("Enter your write-in");
+        dialog.setContentText("Candidate Name: ");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            insert.setName(result.get());
+        }
+
+        insert.setOffice("Write In");
+        insert.setParty("Write In");
+        insert.setBio("Write In");
+
+        //Context.getInstance().currentTally().addCandidate(insert);
+        Context.getInstance().currentBallot().addWriteIn(insert);
+        Context.getInstance().currentBallot().addOfficeSelection(insert.getName());
+
+        Context.getInstance().currentVoter().vote();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Voting Complete");
+        alert.setContentText("Democracy thanks you!");
+        alert.show();
+
+        Context.getInstance().currentBallot().print();
+        Context.getInstance().refresh();
+        Parent parent = FXMLLoader.load(getClass().getResource("home.fxml"));
+        Scene homeScene = new Scene(parent);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(homeScene);
+        appStage.setFullScreen(true);
+        appStage.show();
+
     }
 
 
