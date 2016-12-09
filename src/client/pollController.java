@@ -68,7 +68,7 @@ public class pollController implements Initializable {
                 String tempName = rs.getString("name");
                 int tempLocalVotes=rs.getInt("tempVotes");
                 if(tempLocalVotes!=0){
-                    System.out.println("WE ARE ADDING LOCAL TO TOTAL IF SOMEONE VOTED FOR THEM AT LOCAL LEVEL");
+                    //System.out.println("WE ARE ADDING LOCAL TO TOTAL IF SOMEONE VOTED FOR THEM AT LOCAL LEVEL");
                     String sql1="UPDATE Candidate SET totalVotes=totalVotes+?,tempVotes=0 WHERE name=?;";
                     statement=conn.prepareStatement(sql1);
                     statement.setInt(1,tempLocalVotes);
@@ -77,12 +77,12 @@ public class pollController implements Initializable {
                 }
                 tallyResults +="[Name: "+tempName+" Local Votes: "+tempLocalVotes+"]";
             }
-            System.out.println("Adding to the tally table?");
+            //System.out.println("Adding to the tally table?");
             String sql2="INSERT INTO tally (results,pollOver) VALUES (?,'True')";
             statement=conn.prepareStatement(sql2);
             statement.setString(1,tallyResults);
             statement.executeUpdate();
-            System.out.println(tallyResults);
+            //System.out.println(tallyResults);
 
 
 
@@ -105,14 +105,37 @@ public class pollController implements Initializable {
 
     //TODO: (Aaron) if you want (I don't think we need it) print out the total number of people who voted or whatever
     public void totalBtnClicked(ActionEvent event) throws IOException{
+        try{
+            conn=databaseConnector.getConnection();
+            String sql = "SELECT name,totalVotes FROM candidate";
 
+            stmt=conn.createStatement();
+            rs=stmt.executeQuery(sql);
+            while(rs.next()){
+                String tempName=rs.getString("name");
+                int tempTotalVotes=rs.getInt("totalVotes");
+                //TODO:REMOVE
+                //System.out.println("TOTAL VOTES:\n"+"[Name:"+tempName+" totalVotes: "+tempTotalVotes+"]\n");
+
+            }
+
+
+        }catch(Exception e){
+            System.out.println("SQL EXCEPTION FOUND:"+e);
+        }finally{
+            try{if (statement != null) { statement.close(); }}
+            catch(Exception a){
+                System.out.println("SQL EXCEPTION FOUND:" +a);
+            }
+
+        }
     }
 
     public void tallyBtnClicked(ActionEvent event) throws IOException {
         Context.getInstance().currentOfficial().tallyResults();
         int tempRecordCount=-1;
         String tempResults="";
-        //TODO: (Aaron) can we use your query for all the local votes and print that in the console here?
+        //TODO: (Aaron-DONE?) can we use your query for all the local votes and print that in the console here?
         try{
             conn=databaseConnector.getConnection();
             String sql = "SELECT ID from tally";
@@ -130,7 +153,8 @@ public class pollController implements Initializable {
                 while(rs.next()){
                     tempResults=rs.getString("results");
                 }
-                System.out.println(tempResults);
+                //TODO: Write this to file? LOCAL RESULTS
+                //System.out.println(tempResults);
 
             }
 

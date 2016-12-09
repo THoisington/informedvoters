@@ -126,11 +126,34 @@ public class BallotController implements Initializable {
         insert.setParty("Write In");
         insert.setBio("Write In");
 
-        //Context.getInstance().currentTally().addCandidate(insert);
-        Context.getInstance().currentBallot().addWriteIn(insert);
+        Context.getInstance().currentTally().addCandidate(insert);
+        //Context.getInstance().currentBallot().addWriteIn(insert);
         Context.getInstance().currentBallot().addOfficeSelection(insert.getName());
 
         Context.getInstance().currentVoter().vote();
+
+        try{
+            int tempID=Context.getInstance().currentVoter().getVoterID();
+            conn=databaseConnector.getConnection();
+            String sql = "UPDATE voterID SET hasVoted=?,dlnum=? WHERE ID=?";
+
+            statement = conn.prepareStatement(sql);
+            statement.setString(1,"True");
+            statement.setNull(2,java.sql.Types.INTEGER);
+            statement.setInt(3,tempID);
+            statement.executeUpdate();
+
+
+
+        }
+        catch(SQLException e){
+            System.out.println("SQL exception occured" + e);
+        }finally {
+            try{if (statement != null) { statement.close(); }}
+            catch(Exception a){
+                System.out.println("SQL EXCEPTION FOUND"+a);
+            }
+        }
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Voting Complete");
@@ -138,12 +161,14 @@ public class BallotController implements Initializable {
         alert.show();
 
         Context.getInstance().currentBallot().print();
+        Context.getInstance().currentTally().getCandidates().remove(insert);
+
         Context.getInstance().refresh();
         Parent parent = FXMLLoader.load(getClass().getResource("home.fxml"));
         Scene homeScene = new Scene(parent);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(homeScene);
-        appStage.setFullScreen(true);
+        //appStage.setFullScreen(true);
         appStage.show();
 
     }
@@ -185,6 +210,7 @@ public class BallotController implements Initializable {
                 statement.setNull(2,java.sql.Types.INTEGER);
                 statement.setInt(3,tempID);
                 statement.executeUpdate();
+
 
 
             }

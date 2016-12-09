@@ -23,15 +23,16 @@ public class homeController {
 
 
     public void authBtnClicked(ActionEvent event) throws IOException {
+
         int idField = Integer.parseInt(voterF.getText());
 
-        if(idField == 666){
+        if(idField == 123){
             Stage officialLogin = new Stage();
             Parent off = FXMLLoader.load(getClass().getResource("officialLogin.fxml"));
             officialLogin.initModality(Modality.WINDOW_MODAL);
             //officialLogin.initOwner(off.getScene().getWindow());
             officialLogin.setScene(new Scene(off, 600, 550));
-            officialLogin.setFullScreen(true);
+            //officialLogin.setFullScreen(true);
             officialLogin.show();
 
         }else if(Context.getInstance().currentVoter().authenticate(idField) == true && Context.getInstance().currentTally().isPollOver() == false){
@@ -41,7 +42,7 @@ public class homeController {
             Scene candidateScene = new Scene(candidateParent);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             appStage.setScene(candidateScene);
-            appStage.setFullScreen(true);
+            //appStage.setFullScreen(true);
             appStage.show();
         }
         else{
