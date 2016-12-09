@@ -43,11 +43,24 @@ public class BallotController implements Initializable {
         buttons.add(radioB);
         buttons.add(radioC);
         buttons.add(radioD);
+
+        ToggleGroup group = new ToggleGroup();
+        radioA.setToggleGroup(group);
+        radioB.setToggleGroup(group);
+        radioC.setToggleGroup(group);
+        radioD.setToggleGroup(group);
+
         for(int i = 0; i < Context.getInstance().currentBallot().getCandidates().size() && i < 4; i++){
             Candidate current = (Candidate) Context.getInstance().currentBallot().getCandidates().get(i);
             buttons.get(i).setText(current.getName());
             lastTail = index;
             index++;
+        }
+
+        for (RadioButton x : buttons) {
+            if (x.getText().equals("")) {
+                x.setVisible(false);
+            }
         }
 
         if(Context.getInstance().currentBallot().getCandidates().size()<=4){
@@ -165,7 +178,6 @@ public class BallotController implements Initializable {
         alert.setContentText("Democracy thanks you!");
         alert.show();
 
-        Context.getInstance().currentBallot().print();
         Context.getInstance().currentTally().getCandidates().remove(insert);
 
         Context.getInstance().refresh();
@@ -204,7 +216,7 @@ public class BallotController implements Initializable {
             alert.setContentText("Democracy thanks you!");
             alert.show();
 
-            //TODO: (Aaron-Done? I remove user DL# from DB so the other TODO is completed) set voter to having voted in DB
+
             try{
                 int tempID=Context.getInstance().currentVoter().getVoterID();
                 conn=databaseConnector.getConnection();
@@ -227,8 +239,6 @@ public class BallotController implements Initializable {
                     System.out.println("SQL EXCEPTION FOUND"+a);
                 }
             }
-
-            Context.getInstance().currentBallot().print();
 
             Context.getInstance().refresh();
             Parent parent = FXMLLoader.load(getClass().getResource("home.fxml"));

@@ -27,14 +27,6 @@ public class Ballot {
 
     }
 
-    public void print(){
-        for (Candidate x: candidates) {
-            if(x.getVotesReceived()!=0){
-                System.out.println("Voter: " + this.getVoterID() + "  voted for: " + x.getName());
-            }
-        }
-    }
-
     public int getVoterID() {
         return voterID;
     }

@@ -23,9 +23,9 @@ public class Voter{
 
     public void vote(){
         int i;
-        //TODO: (Aaron-Done?) This is where we write the contents of the object on the next line to the DB
+
         Ballot submit = Context.getInstance().currentBallot();
-        // TODO(Done?): Add one to Candidates Table LOCAL votes column
+
         ArrayList<Candidate> candidatesTemp=submit.getCandidates();
         boolean isDone=false;
         for(i=0;i<candidatesTemp.size();i++){
@@ -76,13 +76,7 @@ public class Voter{
     public Boolean authenticate(int inputID, int inputDL){
         String hasVotedString;
         Boolean hasntVoted=false;
-        int fakequery = 123;
 
-        //For Testing
-//        //TODO: Remove before submission
-//        if(input == fakequery){
-//            return true;
-//        }
 
         try{
             conn=databaseConnector.getConnection();
