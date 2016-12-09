@@ -1,10 +1,20 @@
 package client;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.*;
+
 /**
  * Created by hoisi on 10/26/2016.
  */
 public class Official {
-
+    int voterID;
+    private Connection conn = null;
+    private Statement stmt = null;
+    private ResultSet rs = null;
+    private PreparedStatement statement=null;
     private static final String ps = "Pothering";
 
     public Official(){
@@ -24,11 +34,45 @@ public class Official {
     //TODO: recount method
 
     public Boolean authenticate(String input){
-        if(input.equals(ps)){
-            return true;
+        //TODO: THIS IS JUST SO YOU CAN SEE THE AUTHENTICATE METHOD FOR OFFICIAL
+        String tokens[]=input.split("-");
+        if(tokens.length==2) {
+            String tempInput = tokens[1];
+            int tempID = Integer.parseInt(tempInput);
+            try {
+                conn = databaseConnector.getConnection();
+                String sql = "SELECT * FROM official WHERE ID=?";
+
+                statement = conn.prepareStatement(sql);
+                statement.setInt(1, tempID);
+                rs = statement.executeQuery();
+                if (!rs.next()) {
+                    return false;
+                } else {
+                    return true;
+                }
+
+
+            } catch (Exception e) {
+                System.out.println("SQL EXCEPTION FOUND:" + e);
+            } finally {
+                try {
+                    if (statement != null) {
+                        statement.close();
+                    }
+                } catch (Exception a) {
+                    System.out.println("SQL EXCEPTION FOUND:" + a);
+                }
+
+            }
         }
-        else{
-            return false;
-        }
+        return false;
+
+//        if(input.equals(ps)){
+//            return true;
+//        }
+//        else{
+//            return false;
+//        }
     }
 }
