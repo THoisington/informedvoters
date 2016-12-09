@@ -27,8 +27,9 @@ public class Voter{
         Ballot submit = Context.getInstance().currentBallot();
         // TODO(Done?): Add one to Candidates Table LOCAL votes column
         ArrayList<Candidate> candidatesTemp=submit.getCandidates();
+        boolean isDone=false;
         for(i=0;i<candidatesTemp.size();i++){
-                if(candidatesTemp.get(i).getVotesReceived()==1){
+                if(candidatesTemp.get(i).getVotesReceived()==1 && isDone==false){
                     String tempName=candidatesTemp.get(i).getName();
                     try{
                         conn=databaseConnector.getConnection();
@@ -37,6 +38,15 @@ public class Voter{
                         statement = conn.prepareStatement(sql);
                         statement.setString(1,tempName);
                         statement.executeUpdate();
+                        int tempID=Context.getInstance().currentVoter().getVoterID();
+                        //System.out.println("This is a test for ID-"+tempID);
+                        String sql1 ="INSERT INTO ballots (ID,votes) VALUES (?,?)";
+                        statement=conn.prepareStatement(sql1);
+                        statement.setInt(1,tempID);
+                        statement.setString(2,tempName);
+                        statement.executeUpdate();
+                        isDone=true;
+
 
 
 
@@ -69,7 +79,7 @@ public class Voter{
         int fakequery = 123;
 
         //For Testing
-        //TODO: Remove before submission
+//        //TODO: Remove before submission
 //        if(input == fakequery){
 //            return true;
 //        }
@@ -83,7 +93,7 @@ public class Voter{
             rs=statement.executeQuery();
             while(rs.next()) {
                 hasVotedString=rs.getString("hasVoted");
-                System.out.println("HAS THIS USER VOTED OUTPUT TEST: " + hasVotedString);
+                //System.out.println("HAS THIS USER VOTED OUTPUT TEST: " + hasVotedString);
                 if(hasVotedString.toLowerCase().equals("true")){
                     hasntVoted=false;
                     return hasntVoted;

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+
 import com.sun.deploy.util.ArrayUtil;
 
 import java.io.*;
@@ -34,9 +35,7 @@ public class Tally {
         this.pollOver = pollOver;
     }
 
-    public void display(){
 
-    }
 
 
     public ArrayList<Candidate> getCandidates() {
@@ -49,7 +48,9 @@ public class Tally {
         //Commented out for myself
         try{
             conn=databaseConnector.getConnection();
-            String name1=x.getName();
+            String name2=x.getName().toLowerCase();
+
+            x.setName(name2);
             String bio1=x.getBio();
             String party1=x.getParty();
             String office1=x.getOffice();
@@ -57,11 +58,12 @@ public class Tally {
             String sql = "INSERT INTO Candidate(name,office,party,bio) VALUES(?,?,?,?)";
 
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1,name1);
+            statement.setString(1,name2);
             statement.setString(2,office1);
             statement.setString(3, party1);
             statement.setString(4, bio1);
             statement.executeUpdate();
+
             //candidates.add(x); Because at the moment we are not populating ballots with Candidates from DB, just from Officials actions
 
         }
