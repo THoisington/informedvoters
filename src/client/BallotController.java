@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.*;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,10 +24,14 @@ public class BallotController implements Initializable {
     RadioButton radioA, radioB, radioC, radioD;
     @FXML
     Label officeName;
+    @FXML
+    Button rightBtn,leftBtn;
+
     private Connection conn = null;
     private Statement stmt = null;
     private ResultSet rs = null;
     private PreparedStatement statement=null;
+
 
     int index = 0, lastTail;
     ArrayList <RadioButton> buttons = new ArrayList<>();
@@ -49,6 +50,10 @@ public class BallotController implements Initializable {
             index++;
         }
 
+        if(Context.getInstance().currentBallot().getCandidates().size()<=4){
+            rightBtn.setVisible(false);
+            leftBtn.setVisible(false);
+        }
 
     }
 

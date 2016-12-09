@@ -73,7 +73,7 @@ public class Voter{
         this.voterID = voterID;
     }
 
-    public Boolean authenticate(int input){
+    public Boolean authenticate(int inputID, int inputDL){
         String hasVotedString;
         Boolean hasntVoted=false;
         int fakequery = 123;
@@ -86,10 +86,11 @@ public class Voter{
 
         try{
             conn=databaseConnector.getConnection();
-            String sql = "SELECT hasvoted FROM voterID WHERE ID=?";
+            String sql = "SELECT hasvoted FROM voterID WHERE ID=? AND dlnum=?";
 
             statement = conn.prepareStatement(sql);
-            statement.setInt(1,input);
+            statement.setInt(1,inputID);
+            statement.setInt(2,inputDL);
             rs=statement.executeQuery();
             while(rs.next()) {
                 hasVotedString=rs.getString("hasVoted");

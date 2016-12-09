@@ -1,4 +1,5 @@
 package client;
+import java.io.PrintWriter;
 import java.sql.*;
 
 import javafx.event.ActionEvent;
@@ -103,9 +104,9 @@ public class pollController implements Initializable {
 
     }
 
-    //TODO: (Aaron) if you want (I don't think we need it) print out the total number of people who voted or whatever
-    public void totalBtnClicked(ActionEvent event) throws IOException{
+    public void recountBtnClicked(ActionEvent event) throws IOException{
         try{
+            PrintWriter writer = new PrintWriter("recount.txt", "UTF-8");
             conn=databaseConnector.getConnection();
             String sql = "SELECT name,totalVotes FROM candidate";
 
@@ -114,12 +115,19 @@ public class pollController implements Initializable {
             while(rs.next()){
                 String tempName=rs.getString("name");
                 int tempTotalVotes=rs.getInt("totalVotes");
-                //TODO:REMOVE
-                //System.out.println("TOTAL VOTES:\n"+"[Name:"+tempName+" totalVotes: "+tempTotalVotes+"]\n");
+                writer.println("TOTAL VOTES:\n"+"[Name:"+tempName+" totalVotes: "+tempTotalVotes+"]\n");
 
             }
+            String sql2="SELECT * from ballots";
+            stmt=conn.createStatement();
+            rs=stmt.executeQuery(sql2);
+            while(rs.next()){
+                int tempVID=rs.getInt("ID");
+                String tempCand=rs.getString("votes");
+                writer.println("Voter ID: "+tempVID+"  Choice: "+tempCand);
+            }
 
-
+            writer.close();
         }catch(Exception e){
             System.out.println("SQL EXCEPTION FOUND:"+e);
         }finally{

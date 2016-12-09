@@ -17,7 +17,7 @@ import java.io.IOException;
 public class homeController {
 
     @FXML
-    TextField voterF;
+    TextField voterF,dlF;
 
     //TODO: eventlistener for shortcut to get to admin tool
 
@@ -25,6 +25,7 @@ public class homeController {
     public void authBtnClicked(ActionEvent event) throws IOException {
 
         int idField = Integer.parseInt(voterF.getText());
+        int dlField = Integer.parseInt(dlF.getText());
 
         if(idField == 123){
             Stage officialLogin = new Stage();
@@ -35,7 +36,7 @@ public class homeController {
             //officialLogin.setFullScreen(true);
             officialLogin.show();
 
-        }else if(Context.getInstance().currentVoter().authenticate(idField) == true && Context.getInstance().currentTally().isPollOver() == false){
+        }else if(Context.getInstance().currentVoter().authenticate(idField,dlField) == true && Context.getInstance().currentTally().isPollOver() == false){
             Context.getInstance().currentVoter().setVoterID(idField);
             //TODO: (Aaron-DONE WHEN set hasvoted to true) remove User identification from DB
             Parent candidateParent = FXMLLoader.load(getClass().getResource("candidateController.fxml"));

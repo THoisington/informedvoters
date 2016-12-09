@@ -41,20 +41,44 @@ public class candidateController implements Initializable{
         candidateOneBio.setText(db.get(0).getBio());
         candidateOneOffice.setText(db.get(0).getBio());
 
-        candidateTwoName.setText(db.get(1).getName());
-        candidateTwoParty.setText(db.get(1).getParty());
-        candidateTwoBio.setText(db.get(1).getBio());
-        candidateTwoOffice.setText(db.get(1).getBio());
+        if(db.size() >= 2) {
+            candidateTwoName.setText(db.get(1).getName());
+            candidateTwoParty.setText(db.get(1).getParty());
+            candidateTwoBio.setText(db.get(1).getBio());
+            candidateTwoOffice.setText(db.get(1).getBio());
+        }
+        else{
+            candidateTwoBio.setVisible(false);
+            candidateTwoParty.setVisible(false);
+            candidateTwoOffice.setVisible(false);
+            candidateTwoName.setVisible(false);
+        }
 
-        candidateThreeName.setText(db.get(2).getName());
-        candidateThreeParty.setText(db.get(2).getParty());
-        candidateThreeBio.setText(db.get(2).getBio());
-        candidateThreeOffice.setText(db.get(2).getBio());
+        if(db.size() >= 3) {
+            candidateThreeName.setText(db.get(2).getName());
+            candidateThreeParty.setText(db.get(2).getParty());
+            candidateThreeBio.setText(db.get(2).getBio());
+            candidateThreeOffice.setText(db.get(2).getBio());
+        }
+        else{
+            candidateThreeBio.setVisible(false);
+            candidateThreeParty.setVisible(false);
+            candidateThreeOffice.setVisible(false);
+            candidateThreeName.setVisible(false);
+        }
 
-        candidateFourName.setText(db.get(3).getName());
-        candidateFourParty.setText(db.get(3).getParty());
-        candidateFourBio.setText(db.get(3).getBio());
-        candidateFourOffice.setText(db.get(3).getBio());
+        if(db.size() >= 4) {
+            candidateFourName.setText(db.get(3).getName());
+            candidateFourParty.setText(db.get(3).getParty());
+            candidateFourBio.setText(db.get(3).getBio());
+            candidateFourOffice.setText(db.get(3).getBio());
+        }
+        else{
+            candidateFourBio.setVisible(false);
+            candidateFourParty.setVisible(false);
+            candidateFourOffice.setVisible(false);
+            candidateFourName.setVisible(false);
+        }
     }
 
     public void proceedBtnClicked(ActionEvent event) throws IOException {

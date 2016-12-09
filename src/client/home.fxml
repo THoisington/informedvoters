@@ -7,28 +7,12 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.homeController">
-   <center>
-      <VBox BorderPane.alignment="CENTER">
-         <children>
-            <Region prefHeight="163.0" prefWidth="600.0" />
-            <TextField fx:id="voterF">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin></TextField>
-            <Region prefHeight="52.0" prefWidth="600.0" />
-            <HBox>
-               <children>
-                  <Region prefHeight="31.0" prefWidth="219.0" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="authBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#authBtnClicked" text="Proceed to Ballot" textAlignment="CENTER" HBox.hgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Button>
-                  <Region prefHeight="0.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </center>
-</BorderPane>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.homeController">
+   <children>
+      <TextField fx:id="voterF" layoutX="60.0" layoutY="215.0" prefHeight="31.0" prefWidth="436.0" />
+      <TextField fx:id="dlF" layoutX="65.0" layoutY="351.0" prefHeight="31.0" prefWidth="436.0" />
+      <Button fx:id="authBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="224.0" layoutY="436.0" mnemonicParsing="false" onAction="#authBtnClicked" text="Proceed to Ballot" textAlignment="CENTER" />
+      <Label layoutX="217.0" layoutY="178.0" text="Enter Your Voter ID:" />
+      <Label layoutX="201.0" layoutY="296.0" text="Enter Your Driver's License:" />
+   </children>
+</Pane>
