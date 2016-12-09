@@ -56,7 +56,6 @@ public class pollController implements Initializable {
         Context.getInstance().currentOfficial().endPoll();
         feedbackMsg.setText("Poll Ended!");
         String tallyResults="TallyResults:  ";
-        //TODO(DONE THIS TODO AND ONE BELOW) Aaron create tally string
         System.out.println("End Button Pressed");
         try{
 
@@ -76,7 +75,7 @@ public class pollController implements Initializable {
                     statement.setString(2,tempName);
                     statement.executeUpdate();
                 }
-                tallyResults +="[Name: "+tempName+" Local Votes: "+tempLocalVotes+"]";
+                tallyResults +="[Name: "+tempName+" Local Votes: "+tempLocalVotes+"]\n";
             }
             //System.out.println("Adding to the tally table?");
             String sql2="INSERT INTO tally (results,pollOver) VALUES (?,'True')";
@@ -98,7 +97,7 @@ public class pollController implements Initializable {
 
         }
 
-        //TODO(DONE ABOVE) Aaron Transfer local to total
+
 
 
 
@@ -143,8 +142,9 @@ public class pollController implements Initializable {
         Context.getInstance().currentOfficial().tallyResults();
         int tempRecordCount=-1;
         String tempResults="";
-        //TODO: (Aaron-DONE?) can we use your query for all the local votes and print that in the console here?
+
         try{
+            PrintWriter writer = new PrintWriter("Tally.txt", "UTF-8");
             conn=databaseConnector.getConnection();
             String sql = "SELECT ID from tally";
 
@@ -161,8 +161,10 @@ public class pollController implements Initializable {
                 while(rs.next()){
                     tempResults=rs.getString("results");
                 }
-                //TODO: Write this to file? LOCAL RESULTS
+
                 //System.out.println(tempResults);
+                writer.println(tempResults);
+                writer.close();
 
             }
 
@@ -194,6 +196,13 @@ public class pollController implements Initializable {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             insert.setName(result.get());
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Candidate Add Cancelled");
+            alert.setContentText("If you made a mistake, add the candidate again ");
+            alert.show();
+            return;
         }
 
         //Office

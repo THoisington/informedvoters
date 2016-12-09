@@ -35,7 +35,7 @@ public class candidateController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList <Candidate> db = Context.getInstance().currentTally().getCandidates();
 
-        //TODO: Add getOffice() and arrow methods
+
         candidateOneName.setText(db.get(0).getName());
         candidateOneParty.setText(db.get(0).getParty());
         candidateOneBio.setText(db.get(0).getBio());
