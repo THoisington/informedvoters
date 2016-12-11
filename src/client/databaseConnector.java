@@ -14,7 +14,7 @@ public class databaseConnector {
     private static String username = "root";
     private static String password = "password";
     private static Connection con;
-    private static String urlstring;
+
 
     public static Connection getConnection() {
         try {

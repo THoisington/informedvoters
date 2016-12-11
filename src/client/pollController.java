@@ -75,7 +75,7 @@ public class pollController implements Initializable {
                     statement.setString(2,tempName);
                     statement.executeUpdate();
                 }
-                tallyResults +="[Name: "+tempName+" Local Votes: "+tempLocalVotes+"]\n";
+                tallyResults +="[Name: "+tempName+" Local Votes: "+tempLocalVotes+"]";
             }
             //System.out.println("Adding to the tally table?");
             String sql2="INSERT INTO tally (results,pollOver) VALUES (?,'True')";
